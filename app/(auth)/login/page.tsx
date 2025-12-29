@@ -44,20 +44,23 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0f172a] flex items-center justify-center p-4">
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent pointer-events-none"></div>
+        <div className="min-h-screen bg-[#0a0f1a] flex items-center justify-center p-6 relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px]"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-amber-500/5 rounded-full blur-[100px]"></div>
+            </div>
 
             <div className="w-full max-w-md relative">
                 {/* Logo */}
-                <div className="text-center mb-8">
-                    <Link href="/" className="inline-flex items-center gap-2 mb-6">
-                        <div className="w-12 h-12 bg-amber-400 rounded-xl flex items-center justify-center">
-                            <span className="text-slate-900 text-2xl">🤖</span>
+                <div className="text-center mb-10">
+                    <Link href="/" className="inline-flex items-center gap-3 mb-8 group">
+                        <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:shadow-amber-500/50 transition-all">
+                            <span className="text-[#0a0f1a] text-2xl">🤖</span>
                         </div>
                         <span className="text-2xl font-bold text-white">ChatBotVN</span>
                     </Link>
-                    <h1 className="text-3xl font-bold text-white mb-2">
+                    <h1 className="text-3xl font-bold text-white mb-3">
                         Đăng Nhập
                     </h1>
                     <p className="text-slate-400">
@@ -66,16 +69,16 @@ export default function LoginPage() {
                 </div>
 
                 {/* Form */}
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 shadow-xl">
+                <div className="bg-slate-800/30 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl">
                     <form onSubmit={handleLogin} className="space-y-5">
                         {error && (
-                            <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl text-sm">
+                            <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-5 py-4 rounded-2xl text-sm">
                                 {error}
                             </div>
                         )}
 
                         <div>
-                            <label htmlFor="email" className="block text-slate-300 font-medium mb-2 text-sm">
+                            <label htmlFor="email" className="block text-slate-300 font-medium mb-3 text-sm">
                                 Email
                             </label>
                             <input
@@ -84,13 +87,13 @@ export default function LoginPage() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
+                                className="w-full px-5 py-4 bg-slate-900/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all"
                                 placeholder="email@example.com"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-slate-300 font-medium mb-2 text-sm">
+                            <label htmlFor="password" className="block text-slate-300 font-medium mb-3 text-sm">
                                 Mật khẩu
                             </label>
                             <input
@@ -99,7 +102,7 @@ export default function LoginPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
+                                className="w-full px-5 py-4 bg-slate-900/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -107,16 +110,16 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 font-bold rounded-xl hover:shadow-lg hover:shadow-amber-400/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#0a0f1a] font-bold text-lg rounded-2xl shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.01] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                         >
                             {loading ? 'Đang đăng nhập...' : 'Đăng Nhập'}
                         </button>
                     </form>
 
-                    <div className="mt-6 text-center">
+                    <div className="mt-8 text-center">
                         <p className="text-slate-400 text-sm">
                             Chưa có tài khoản?{' '}
-                            <Link href="/register" className="text-amber-400 font-semibold hover:text-amber-300 transition">
+                            <Link href="/register" className="text-amber-400 font-semibold hover:text-amber-300 transition-colors">
                                 Đăng ký ngay
                             </Link>
                         </p>
@@ -124,9 +127,11 @@ export default function LoginPage() {
                 </div>
 
                 {/* Back to home */}
-                <div className="text-center mt-6">
-                    <Link href="/" className="text-slate-400 hover:text-white transition text-sm flex items-center justify-center gap-2">
-                        <span>←</span>
+                <div className="text-center mt-8">
+                    <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
                         <span>Quay lại trang chủ</span>
                     </Link>
                 </div>
