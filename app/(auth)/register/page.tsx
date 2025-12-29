@@ -37,7 +37,6 @@ export default function RegisterPage() {
 
             if (error) throw error;
 
-            // Redirect to dashboard (user will be created as GUEST by trigger)
             router.push('/dashboard');
         } catch (err: any) {
             setError(err.message || 'Đăng ký thất bại');
@@ -47,25 +46,32 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 p-4">
+        <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
             <div className="w-full max-w-md">
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20">
-                    <h1 className="text-3xl font-bold text-white text-center mb-2">
+                {/* Logo */}
+                <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl mb-4">
+                        <span className="text-white font-bold text-2xl">AI</span>
+                    </div>
+                    <h1 className="text-3xl font-bold text-white mb-2">
                         Đăng Ký
                     </h1>
-                    <p className="text-white/80 text-center mb-8">
-                        Tạo tài khoản mới
+                    <p className="text-slate-400">
+                        Tạo tài khoản để bắt đầu sử dụng
                     </p>
+                </div>
 
+                {/* Form */}
+                <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700 shadow-2xl">
                     <form onSubmit={handleRegister} className="space-y-6">
                         {error && (
-                            <div className="bg-red-500/20 border border-red-500/50 text-white px-4 py-3 rounded-lg">
+                            <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl text-sm">
                                 {error}
                             </div>
                         )}
 
                         <div>
-                            <label htmlFor="email" className="block text-white font-medium mb-2">
+                            <label htmlFor="email" className="block text-slate-300 font-medium mb-2">
                                 Email
                             </label>
                             <input
@@ -74,13 +80,13 @@ export default function RegisterPage() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 transition"
+                                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                                 placeholder="email@example.com"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-white font-medium mb-2">
+                            <label htmlFor="password" className="block text-slate-300 font-medium mb-2">
                                 Mật khẩu
                             </label>
                             <input
@@ -89,13 +95,13 @@ export default function RegisterPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 transition"
+                                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                                 placeholder="••••••••"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="confirmPassword" className="block text-white font-medium mb-2">
+                            <label htmlFor="confirmPassword" className="block text-slate-300 font-medium mb-2">
                                 Xác nhận mật khẩu
                             </label>
                             <input
@@ -104,7 +110,7 @@ export default function RegisterPage() {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
-                                className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 transition"
+                                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -112,18 +118,27 @@ export default function RegisterPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-white text-purple-600 font-bold py-3 px-4 rounded-lg hover:bg-white/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-3.5 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 font-bold rounded-xl hover:shadow-lg hover:shadow-amber-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? 'Đang đăng ký...' : 'Đăng Ký'}
                         </button>
                     </form>
 
-                    <p className="text-white/80 text-center mt-6">
-                        Đã có tài khoản?{' '}
-                        <Link href="/login" className="text-white font-semibold hover:underline">
-                            Đăng nhập
-                        </Link>
-                    </p>
+                    <div className="mt-6 text-center">
+                        <p className="text-slate-400">
+                            Đã có tài khoản?{' '}
+                            <Link href="/login" className="text-amber-400 font-semibold hover:text-amber-300 transition">
+                                Đăng nhập
+                            </Link>
+                        </p>
+                    </div>
+                </div>
+
+                {/* Back to home */}
+                <div className="text-center mt-6">
+                    <Link href="/" className="text-slate-400 hover:text-white transition">
+                        ← Quay lại trang chủ
+                    </Link>
                 </div>
             </div>
         </div>
