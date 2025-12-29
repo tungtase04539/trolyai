@@ -9,16 +9,18 @@ interface Product {
   description: string;
   price: number;
   image_url: string | null;
-  category?: string;
 }
 
 const categories = [
-  { id: 'all', name: 'Tất cả', emoji: '🤖' },
-  { id: 'education', name: 'Giáo dục', emoji: '🎓' },
-  { id: 'business', name: 'Kinh doanh', emoji: '💼' },
-  { id: 'ecommerce', name: 'Bán hàng', emoji: '🛒' },
-  { id: 'support', name: 'Hỗ trợ', emoji: '💬' },
-  { id: 'marketing', name: 'Marketing', emoji: '📢' },
+  { id: 'all', name: 'Tất cả', emoji: '🤖', color: 'bg-yellow-400 text-slate-900' },
+  { id: 'education', name: 'Giáo dục', emoji: '📚', color: 'bg-purple-600 text-white' },
+  { id: 'business', name: 'Kinh doanh', emoji: '💼', color: 'bg-blue-600 text-white' },
+  { id: 'health', name: 'Y tế - Sức khỏe', emoji: '🏥', color: 'bg-teal-600 text-white' },
+  { id: 'travel', name: 'Du lịch - Nhà hàng', emoji: '✈️', color: 'bg-orange-600 text-white' },
+  { id: 'ecommerce', name: 'Bất động sản', emoji: '🏠', color: 'bg-green-600 text-white' },
+  { id: 'consulting', name: 'Tài chính - Bảo hiểm', emoji: '💰', color: 'bg-indigo-600 text-white' },
+  { id: 'support', name: 'Tôn giáo - Tâm linh', emoji: '🙏', color: 'bg-pink-600 text-white' },
+  { id: 'other', name: 'Khác', emoji: '📦', color: 'bg-gray-600 text-white' },
 ];
 
 export default function HomePage() {
@@ -43,31 +45,32 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
-        <div className="container mx-auto px-4 py-4">
-          <nav className="flex justify-between items-center">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-slate-900 shadow-md">
+        <div className="container mx-auto px-4">
+          <nav className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">AI</span>
+              <div className="w-8 h-8 bg-yellow-400 rounded flex items-center justify-center">
+                <span className="text-slate-900 font-bold">🤖</span>
               </div>
-              <span className="text-xl font-bold text-white hidden md:block">ChatBotVN</span>
+              <span className="text-lg font-bold text-white">ChatBotVN</span>
             </Link>
 
-            <div className="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
-              <Link href="/" className="text-slate-300 hover:text-amber-400 transition">TRANG CHỦ</Link>
-              <Link href="#products" className="text-slate-300 hover:text-amber-400 transition">SẢN PHẨM</Link>
-              <Link href="#features" className="text-slate-300 hover:text-amber-400 transition">TÍNH NĂNG</Link>
+            <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
+              <Link href="/" className="text-yellow-400 hover:text-yellow-300 transition">TRANG CHỦ</Link>
+              <Link href="#products" className="text-white hover:text-yellow-400 transition">SẢN PHẨM</Link>
+              <Link href="#features" className="text-white hover:text-yellow-400 transition">TIN TỨC</Link>
             </div>
 
             <div className="flex items-center space-x-4">
-              <a href="tel:0363189699" className="hidden md:block text-amber-400 font-bold hover:text-amber-300 transition">
-                📞 0363 189 699
+              <a href="tel:0363189699" className="hidden md:flex items-center gap-2 text-white hover:text-yellow-400 transition">
+                <span>📞</span>
+                <span className="font-semibold">0363 189 699</span>
               </a>
               <Link
-                href="#order"
-                className="px-6 py-2.5 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 font-bold rounded-xl hover:shadow-lg hover:shadow-amber-500/50 transition-all"
+                href="/checkout"
+                className="px-6 py-2 bg-yellow-400 text-slate-900 font-bold rounded hover:bg-yellow-500 transition"
               >
                 MUA NGAY
               </Link>
@@ -77,38 +80,40 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-b from-amber-500/5 to-transparent">
+      <section className="py-16 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto mb-12">
             <div className="inline-block mb-4">
-              <span className="px-4 py-2 bg-red-500/20 text-red-400 rounded-full text-sm font-bold border border-red-500/30 animate-pulse">
+              <span className="px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-bold">
                 🔥 GIẢM ĐẾN 50% TẤT CẢ CHATBOT
               </span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              CHỌN LĨNH VỰC CỦA BẠN
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+              CHỌN <span className="text-yellow-500">LĨNH VỰC</span> CỦA BẠN
             </h1>
-            <p className="text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 font-bold mb-4">
-              Chỉ từ 29K/tháng!
+            <p className="text-lg text-slate-600 mb-2">
+              Chọn lĩnh vực phù hợp để tìm ChatBot AI tốt ưu cho ngành nghề của bạn. Chỉ từ <span className="text-yellow-600 font-bold">29K/tháng!</span>
             </p>
-            <p className="text-lg text-slate-400">
-              Cài đặt 5 phút • Hoạt động 24/7 • Tăng doanh số ngay
-            </p>
+            <div className="flex items-center justify-center gap-6 text-sm text-slate-600">
+              <span>• Cài đặt 5 phút</span>
+              <span>• Hoạt động 24/7</span>
+              <span>• Tăng doanh số ngay</span>
+            </div>
           </div>
 
-          {/* Category Selector */}
-          <div className="flex gap-3 overflow-x-auto pb-4 mb-12 scrollbar-hide">
+          {/* Category Pills */}
+          <div className="flex flex-wrap gap-3 justify-center mb-12">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold whitespace-nowrap transition-all ${selectedCategory === cat.id
-                    ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 shadow-lg shadow-amber-500/50'
-                    : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold transition-all ${selectedCategory === cat.id
+                    ? cat.color + ' shadow-lg scale-105'
+                    : 'bg-white text-slate-700 border-2 border-slate-200 hover:border-slate-300'
                   }`}
               >
-                <span className="text-xl">{cat.emoji}</span>
-                <span>{cat.name}</span>
+                <span>{cat.emoji}</span>
+                <span className="text-sm">{cat.name}</span>
               </button>
             ))}
           </div>
@@ -116,63 +121,66 @@ export default function HomePage() {
       </section>
 
       {/* Products Section */}
-      <section id="products" className="py-12">
+      <section id="products" className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              {selectedCategory === 'all' ? 'Tất cả ChatBot' : categories.find(c => c.id === selectedCategory)?.name}
+            <h2 className="text-2xl font-bold text-slate-900">
+              Tất cả ChatBot
             </h2>
-            <span className="px-4 py-2 bg-slate-800 text-slate-300 rounded-full text-sm font-semibold border border-slate-700">
+            <span className="text-slate-600 font-medium">
               {products.length} SẢN PHẨM
             </span>
           </div>
 
           {loading ? (
             <div className="text-center py-20">
-              <div className="inline-block w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+              <div className="inline-block w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : products.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-slate-400 text-lg">Chưa có sản phẩm nào</p>
+            <div className="text-center py-20 bg-slate-50 rounded-lg">
+              <p className="text-slate-500 text-lg">Chưa có sản phẩm nào</p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {products.map((product, idx) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {products.map((product) => (
                 <div
                   key={product.id}
-                  className="group relative bg-slate-900 rounded-2xl p-6 border border-slate-800 hover:border-amber-500/50 transition-all"
+                  className="bg-slate-800 rounded-lg overflow-hidden hover:shadow-xl transition-shadow"
                 >
-                  {idx < 3 && (
-                    <div className="absolute -top-3 -right-3 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
-                      HOT 🔥
-                    </div>
-                  )}
-
-                  <div className="text-5xl mb-4 text-center">🤖</div>
-
-                  <h3 className="text-lg font-bold text-white mb-2 line-clamp-2">
-                    {product.name}
-                  </h3>
-
-                  <p className="text-slate-400 text-sm mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-
-                  <div className="mb-4">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-amber-400">
-                        {product.price.toLocaleString('vi-VN')}đ
-                      </span>
-                    </div>
-                    <p className="text-slate-500 text-sm">/tháng</p>
+                  {/* Product Image/Icon */}
+                  <div className="bg-slate-700 h-40 flex items-center justify-center">
+                    <span className="text-6xl">🤖</span>
                   </div>
 
-                  <Link
-                    href={`#order?product=${product.id}`}
-                    className="block w-full py-3 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 font-bold rounded-xl hover:shadow-lg hover:shadow-amber-500/50 transition-all text-center"
-                  >
-                    XEM VIDEO DEMO
-                  </Link>
+                  {/* Product Info */}
+                  <div className="p-4">
+                    <div className="mb-2">
+                      <span className="inline-block px-3 py-1 bg-yellow-400 text-slate-900 text-xs font-bold rounded">
+                        Kinh doanh
+                      </span>
+                    </div>
+
+                    <h3 className="text-white font-bold mb-2 line-clamp-2">
+                      {product.name}
+                    </h3>
+
+                    <p className="text-slate-400 text-sm mb-4 line-clamp-2">
+                      {product.description}
+                    </p>
+
+                    <div className="mb-4">
+                      <span className="text-2xl font-bold text-yellow-400">
+                        {product.price.toLocaleString('vi-VN')} đ
+                      </span>
+                    </div>
+
+                    <Link
+                      href={`/checkout?product=${product.id}`}
+                      className="block w-full py-2.5 bg-yellow-400 text-slate-900 font-bold rounded text-center hover:bg-yellow-500 transition"
+                    >
+                      XEM VIDEO DEMO
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
@@ -181,29 +189,24 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-slate-900/50">
+      <section id="features" className="py-20 bg-slate-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-16">
+          <h2 className="text-3xl font-bold text-slate-900 text-center mb-4">
             TẠI SAO CHỌN CHATBOT VN?
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="w-16 h-1 bg-yellow-400 mx-auto mb-12"></div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { icon: '⚡', title: 'Cài đặt 5 phút', desc: 'Dễ dàng tích hợp vào website, fanpage trong 5 phút' },
               { icon: '🤖', title: 'Hoạt động 24/7', desc: 'Tự động trả lời khách hàng mọi lúc, không nghỉ ngơi' },
               { icon: '🔒', title: 'Bảo mật cao', desc: 'Dữ liệu được mã hóa và bảo vệ tuyệt đối' },
               { icon: '📈', title: 'Tăng doanh số', desc: 'Chuyển đổi khách hàng tiềm năng thành đơn hàng' },
-              { icon: '🌐', title: 'Đa nền tảng', desc: 'Hoạt động trên web, Facebook, Zalo, Telegram' },
-              { icon: '💬', title: 'Hỗ trợ tận tâm', desc: 'Đội ngũ hỗ trợ 24/7 qua Zalo, Telegram' },
             ].map((feature, idx) => (
-              <div
-                key={idx}
-                className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700 hover:border-amber-500/50 transition-all group text-center"
-              >
-                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                <p className="text-slate-400">{feature.desc}</p>
+              <div key={idx} className="text-center bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                <div className="text-5xl mb-4">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{feature.title}</h3>
+                <p className="text-slate-600 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -211,104 +214,84 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-red-500/10 via-orange-500/10 to-amber-500/10 border-y border-amber-500/20">
+      <section className="py-20 bg-gradient-to-r from-yellow-400 to-orange-500">
         <div className="container mx-auto px-4 text-center">
-          <div className="inline-block mb-6">
-            <span className="px-6 py-3 bg-green-500/20 text-green-400 rounded-full text-lg font-bold border border-green-500/30">
-              🎁 NHẬN QUÀ MIỄN PHÍ
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            DÙNG THỬ 3 NGÀY
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            Sẵn sàng tự động hóa kinh doanh?
           </h2>
-          <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-            Trải nghiệm miễn phí 3 ngày, không cần thẻ tín dụng
+          <p className="text-slate-800 text-lg mb-8">
+            Hàng nghìn doanh nghiệp đã tin tưởng sử dụng
           </p>
           <Link
-            href="#order"
-            className="inline-block px-12 py-5 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 text-xl font-bold rounded-xl hover:shadow-2xl hover:shadow-amber-500/50 transition-all"
+            href="/checkout"
+            className="inline-block px-10 py-4 bg-slate-900 text-white text-lg font-bold rounded-lg hover:bg-slate-800 transition shadow-lg"
           >
-            ĐĂNG KÝ NGAY - MIỄN PHÍ
+            ĐĂNG KÝ NGAY - MIỄN PHÍ 3 NGÀY
           </Link>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-16">
-            KHÁCH HÀNG NÓI GÌ?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-slate-900 rounded-2xl p-6 border border-slate-800">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full"></div>
-                  <div>
-                    <h4 className="text-white font-bold">Khách hàng {i}</h4>
-                    <p className="text-slate-400 text-sm">Doanh nghiệp</p>
-                  </div>
-                </div>
-                <p className="text-slate-300 text-sm">
-                  "ChatBot giúp tôi tiết kiệm rất nhiều thời gian và tăng doanh số đáng kể. Rất đáng đầu tư!"
-                </p>
-                <div className="mt-4 text-amber-400">⭐⭐⭐⭐⭐</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact CTA */}
-      <section className="py-20 bg-slate-900">
+      {/* Contact Section */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">
               CHÚNG TÔI SẴN SÀNG HỖ TRỢ BẠN
             </h2>
-            <p className="text-slate-400 mb-8">
+            <p className="text-slate-600 mb-8">
               Liên hệ ngay để được tư vấn miễn phí
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:0363189699"
-                className="px-8 py-4 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 font-bold rounded-xl hover:shadow-lg hover:shadow-amber-500/50 transition-all"
-              >
-                📞 GỌI NGAY: 0363 189 699
-              </a>
-              <Link
-                href="#order"
-                className="px-8 py-4 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 transition-all border border-slate-700"
-              >
-                💬 GỬI TIN NHẮN
-              </Link>
+            <div className="bg-slate-50 rounded-lg p-8">
+              <form className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Họ và tên"
+                  className="w-full px-4 py-3 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="w-full px-4 py-3 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
+                <textarea
+                  placeholder="Tin nhắn"
+                  rows={4}
+                  className="w-full px-4 py-3 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none"
+                />
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-yellow-400 text-slate-900 font-bold rounded hover:bg-yellow-500 transition"
+                >
+                  GỬI TIN NHẮN
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-slate-950 border-t border-slate-800">
+      <footer className="py-12 bg-slate-900 text-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h5 className="text-white font-bold mb-4 text-sm tracking-wide">SẢN PHẨM</h5>
+              <h5 className="font-bold mb-4">SẢN PHẨM</h5>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link href="#" className="hover:text-amber-400 transition">ChatBot Bán hàng</Link></li>
-                <li><Link href="#" className="hover:text-amber-400 transition">ChatBot Hỗ trợ</Link></li>
-                <li><Link href="#" className="hover:text-amber-400 transition">ChatBot Marketing</Link></li>
+                <li><Link href="#" className="hover:text-yellow-400">ChatBot Bán hàng</Link></li>
+                <li><Link href="#" className="hover:text-yellow-400">ChatBot Hỗ trợ</Link></li>
+                <li><Link href="#" className="hover:text-yellow-400">ChatBot Marketing</Link></li>
               </ul>
             </div>
             <div>
-              <h5 className="text-white font-bold mb-4 text-sm tracking-wide">HỖ TRỢ</h5>
+              <h5 className="font-bold mb-4">HỖ TRỢ</h5>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link href="#" className="hover:text-amber-400 transition">Hướng dẫn sử dụng</Link></li>
-                <li><Link href="#" className="hover:text-amber-400 transition">Câu hỏi thường gặp</Link></li>
-                <li><Link href="#" className="hover:text-amber-400 transition">Liên hệ</Link></li>
+                <li><Link href="#" className="hover:text-yellow-400">Hướng dẫn</Link></li>
+                <li><Link href="#" className="hover:text-yellow-400">FAQ</Link></li>
+                <li><Link href="#" className="hover:text-yellow-400">Liên hệ</Link></li>
               </ul>
             </div>
             <div>
-              <h5 className="text-white font-bold mb-4 text-sm tracking-wide">LIÊN HỆ</h5>
+              <h5 className="font-bold mb-4">LIÊN HỆ</h5>
               <ul className="space-y-2 text-slate-400 text-sm">
                 <li>📞 0363 189 699</li>
                 <li>📧 support@chatbotvn.com</li>
@@ -322,34 +305,17 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* Floating Sidebar Buttons */}
-      <div className="fixed right-4 bottom-4 flex flex-col gap-3 z-40">
-        <Link
-          href="#order"
-          className="px-6 py-3 bg-green-500 text-white font-bold rounded-full shadow-lg hover:shadow-green-500/50 transition-all flex items-center gap-2"
-        >
-          <span>🎁</span>
-          <span className="hidden md:inline">Tặng quà miễn phí</span>
-        </Link>
-        <Link
-          href="#order"
-          className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg hover:shadow-red-500/50 transition-all flex items-center gap-2"
-        >
-          <span>🎉</span>
-          <span className="hidden md:inline">Khuyến mại Tết</span>
-        </Link>
-        <Link
-          href="#order"
-          className="px-6 py-3 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 font-bold rounded-full shadow-lg hover:shadow-amber-500/50 transition-all flex items-center gap-2"
-        >
-          <span>🚀</span>
-          <span className="hidden md:inline">Dùng thử ngay</span>
-        </Link>
-      </div>
-
-      {/* Order Form Modal - Simple Guest Checkout */}
-      <div id="order" className="hidden">
-        {/* This will be implemented as a separate checkout page */}
+      {/* Floating Buttons */}
+      <div className="fixed right-6 bottom-6 flex flex-col gap-3 z-50">
+        <button className="w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:scale-110 transition flex items-center justify-center">
+          <span className="text-2xl">🎁</span>
+        </button>
+        <button className="w-14 h-14 bg-orange-500 text-white rounded-full shadow-lg hover:scale-110 transition flex items-center justify-center">
+          <span className="text-2xl">🎉</span>
+        </button>
+        <button className="w-14 h-14 bg-yellow-400 text-slate-900 rounded-full shadow-lg hover:scale-110 transition flex items-center justify-center">
+          <span className="text-2xl">🚀</span>
+        </button>
       </div>
     </div>
   );
