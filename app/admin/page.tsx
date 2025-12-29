@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
+import Link from 'next/link';
 
 export default function AdminPage() {
     const router = useRouter();
@@ -11,7 +12,9 @@ export default function AdminPage() {
         products: 0,
         orders: 0,
         users: 0,
+        revenue: 0,
     });
+    const [recentOrders, setRecentOrders] = useState<any[]>([]);
 
     useEffect(() => {
         loadData();
@@ -38,11 +41,17 @@ export default function AdminPage() {
                 usersRes.json(),
             ]);
 
+            const orders = ordersData.orders || [];
+            const paidOrders = orders.filter((o: any) => o.status === 'PAID');
+            const revenue = paidOrders.reduce((sum: number, o: any) => sum + o.amount, 0);
+
             setStats({
                 products: productsData.products?.length || 0,
-                orders: ordersData.orders?.length || 0,
+                orders: orders.length,
                 users: usersData.users?.length || 0,
+                revenue,
             });
+            setRecentOrders(orders.slice(0, 5));
         } catch (error) {
             console.error('Error loading data:', error);
         }
@@ -54,112 +63,132 @@ export default function AdminPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-900">
+        <div className="min-h-screen bg-[#0f172a]">
             {/* Header */}
-            <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex justify-between items-center">
-                        <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center">
-                                <span className="text-white font-bold text-xl">AI</span>
+            <header className="sticky top-0 z-50 bg-slate-800/50 backdrop-blur-sm border-b border-slate-700/50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav className="flex justify-between items-center h-16">
+                        <Link href="/" className="flex items-center gap-2">
+                            <div className="w-10 h-10 bg-amber-400 rounded-lg flex items-center justify-center">
+                                <span className="text-slate-900 text-xl">🤖</span>
                             </div>
-                            <h1 className="text-xl font-bold text-white">Admin Dashboard</h1>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                            <span className="text-slate-400 text-sm">{user?.email}</span>
+                            <span className="text-xl font-bold text-white">Admin Panel</span>
+                        </Link>
+                        <div className="flex items-center gap-4">
+                            <span className="text-slate-400 text-sm hidden md:block">{user?.email}</span>
                             <button
                                 onClick={handleLogout}
-                                className="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 transition border border-slate-700"
+                                className="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition text-sm font-medium"
                             >
                                 Đăng Xuất
                             </button>
                         </div>
-                    </div>
+                    </nav>
                 </div>
             </header>
 
             {/* Main Content */}
-            <main className="container mx-auto px-4 py-8">
-                {/* Stats Cards */}
-                <div className="grid md:grid-cols-3 gap-6 mb-12">
-                    <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-6">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-slate-400 text-sm font-semibold">SẢN PHẨM</h3>
-                            <div className="text-3xl">📦</div>
+            <main className="py-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Stats Cards */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-blue-400 text-sm font-medium">SẢN PHẨM</span>
+                                <span className="text-3xl">📦</span>
+                            </div>
+                            <p className="text-3xl font-bold text-white">{stats.products}</p>
                         </div>
-                        <p className="text-4xl font-bold text-white">{stats.products}</p>
-                    </div>
-                    <div className="bg-gradient-to-br from-amber-500/10 to-orange-600/10 border border-amber-500/30 rounded-2xl p-6">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-slate-400 text-sm font-semibold">ĐƠN HÀNG</h3>
-                            <div className="text-3xl">🛒</div>
+                        <div className="bg-gradient-to-br from-amber-500/10 to-orange-600/10 border border-amber-500/30 rounded-2xl p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-amber-400 text-sm font-medium">ĐƠN HÀNG</span>
+                                <span className="text-3xl">🛒</span>
+                            </div>
+                            <p className="text-3xl font-bold text-white">{stats.orders}</p>
                         </div>
-                        <p className="text-4xl font-bold text-white">{stats.orders}</p>
-                    </div>
-                    <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 border border-green-500/30 rounded-2xl p-6">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-slate-400 text-sm font-semibold">NGƯỜI DÙNG</h3>
-                            <div className="text-3xl">👥</div>
+                        <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 border border-green-500/30 rounded-2xl p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-green-400 text-sm font-medium">NGƯỜI DÙNG</span>
+                                <span className="text-3xl">👥</span>
+                            </div>
+                            <p className="text-3xl font-bold text-white">{stats.users}</p>
                         </div>
-                        <p className="text-4xl font-bold text-white">{stats.users}</p>
+                        <div className="bg-gradient-to-br from-purple-500/10 to-violet-600/10 border border-purple-500/30 rounded-2xl p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-purple-400 text-sm font-medium">DOANH THU</span>
+                                <span className="text-3xl">💰</span>
+                            </div>
+                            <p className="text-3xl font-bold text-white">{stats.revenue.toLocaleString('vi-VN')}đ</p>
+                        </div>
                     </div>
-                </div>
 
-                {/* Quick Actions */}
-                <h2 className="text-2xl font-bold text-white mb-6">Quản Lý Hệ Thống</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    {[
-                        { icon: '📦', title: 'Sản Phẩm', desc: 'Quản lý sản phẩm và mã kích hoạt' },
-                        { icon: '🛒', title: 'Đơn Hàng', desc: 'Xem và quản lý đơn hàng' },
-                        { icon: '👥', title: 'Người Dùng', desc: 'Quản lý người dùng và phân quyền' },
-                        { icon: '⚙️', title: 'Cài Đặt', desc: 'Cấu hình hệ thống' },
-                    ].map((item, idx) => (
-                        <div
-                            key={idx}
-                            className="bg-slate-800 rounded-2xl p-6 border border-slate-700 hover:border-amber-500/50 transition-all cursor-pointer group"
-                        >
-                            <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">
-                                {item.icon}
+                    <div className="grid lg:grid-cols-2 gap-6">
+                        {/* Quick Actions */}
+                        <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+                            <h2 className="text-xl font-bold text-white mb-4">Quản Lý Nhanh</h2>
+                            <div className="grid grid-cols-2 gap-3">
+                                {[
+                                    { icon: '📦', title: 'Sản Phẩm', desc: 'Quản lý sản phẩm' },
+                                    { icon: '🛒', title: 'Đơn Hàng', desc: 'Xem đơn hàng' },
+                                    { icon: '👥', title: 'Người Dùng', desc: 'Quản lý users' },
+                                    { icon: '🔑', title: 'Mã Code', desc: 'Activation codes' },
+                                ].map((item, idx) => (
+                                    <button
+                                        key={idx}
+                                        className="text-left bg-slate-900/50 rounded-xl p-4 border border-slate-700 hover:border-amber-400/50 transition-all group"
+                                    >
+                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{item.icon}</div>
+                                        <h3 className="font-bold text-white text-sm">{item.title}</h3>
+                                        <p className="text-slate-400 text-xs">{item.desc}</p>
+                                    </button>
+                                ))}
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                            <p className="text-slate-400 text-sm mb-4">{item.desc}</p>
-                            <p className="text-amber-400 text-sm font-semibold">Đang phát triển →</p>
                         </div>
-                    ))}
-                </div>
 
-                {/* Instructions */}
-                <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-2xl p-8">
-                    <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                        <span>📝</span> Hướng Dẫn Sử Dụng API
-                    </h3>
-                    <div className="space-y-4 text-slate-300">
-                        <div className="flex items-start gap-3">
-                            <span className="text-amber-400 font-bold">1.</span>
-                            <div>
-                                <strong className="text-white">Tạo sản phẩm:</strong> POST đến{' '}
-                                <code className="bg-slate-800 px-2 py-1 rounded text-amber-400">/api/admin/products</code>
-                            </div>
+                        {/* Recent Orders */}
+                        <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
+                            <h2 className="text-xl font-bold text-white mb-4">Đơn Hàng Gần Đây</h2>
+                            {recentOrders.length === 0 ? (
+                                <p className="text-slate-400 text-center py-8">Chưa có đơn hàng</p>
+                            ) : (
+                                <div className="space-y-3">
+                                    {recentOrders.map((order) => (
+                                        <div key={order.id} className="flex items-center justify-between p-3 bg-slate-900/50 rounded-xl">
+                                            <div>
+                                                <p className="text-white font-medium text-sm">{order.products?.name || 'N/A'}</p>
+                                                <p className="text-slate-400 text-xs">{new Date(order.created_at).toLocaleDateString('vi-VN')}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-amber-400 font-bold text-sm">{order.amount?.toLocaleString('vi-VN')}đ</p>
+                                                <span className={`text-xs ${order.status === 'PAID' ? 'text-green-400' : 'text-yellow-400'}`}>
+                                                    {order.status}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
-                        <div className="flex items-start gap-3">
-                            <span className="text-amber-400 font-bold">2.</span>
-                            <div>
-                                <strong className="text-white">Thêm mã kích hoạt:</strong> POST đến{' '}
-                                <code className="bg-slate-800 px-2 py-1 rounded text-amber-400">/api/admin/products/[id]/codes</code>
+                    </div>
+
+                    {/* API Instructions */}
+                    <div className="mt-6 bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-2xl p-6">
+                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <span>📝</span> Hướng Dẫn API
+                        </h3>
+                        <div className="grid md:grid-cols-3 gap-4 text-sm">
+                            <div className="bg-slate-900/50 rounded-xl p-4">
+                                <p className="text-amber-400 font-semibold mb-2">Tạo sản phẩm</p>
+                                <code className="text-slate-300 text-xs">POST /api/admin/products</code>
                             </div>
-                        </div>
-                        <div className="flex items-start gap-3">
-                            <span className="text-amber-400 font-bold">3.</span>
-                            <div>
-                                <strong className="text-white">Xem đơn hàng:</strong> GET từ{' '}
-                                <code className="bg-slate-800 px-2 py-1 rounded text-amber-400">/api/admin/orders</code>
+                            <div className="bg-slate-900/50 rounded-xl p-4">
+                                <p className="text-amber-400 font-semibold mb-2">Thêm mã kích hoạt</p>
+                                <code className="text-slate-300 text-xs">POST /api/admin/products/[id]/codes</code>
                             </div>
-                        </div>
-                        <div className="mt-6 p-4 bg-slate-800/50 rounded-xl border border-slate-700">
-                            <p className="text-sm text-slate-400">
-                                💡 <strong>Tip:</strong> Giao diện quản lý đầy đủ sẽ được phát triển trong phiên bản tiếp theo.
-                                Hiện tại bạn có thể sử dụng API endpoints hoặc Supabase Dashboard để quản lý.
-                            </p>
+                            <div className="bg-slate-900/50 rounded-xl p-4">
+                                <p className="text-amber-400 font-semibold mb-2">Xem đơn hàng</p>
+                                <code className="text-slate-300 text-xs">GET /api/admin/orders</code>
+                            </div>
                         </div>
                     </div>
                 </div>
