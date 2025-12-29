@@ -23,95 +23,94 @@ function ThankYouContent() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#0a0f1a] relative overflow-hidden">
+        <div className="min-h-screen bg-[#0a0f1a]">
             {/* Background Effects */}
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-green-500/10 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-amber-500/5 rounded-full blur-[100px]"></div>
+            <div className="fixed inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-green-500/5 rounded-full blur-[150px]"></div>
             </div>
 
             {/* Header */}
-            <header className="bg-[#0f1629]/80 backdrop-blur-xl border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                    <nav className="flex items-center justify-between h-20">
-                        <Link href="/" className="flex items-center gap-3 group">
-                            <div className="w-11 h-11 bg-gradient-to-br from-amber-400 to-amber-500 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20">
-                                <span className="text-[#0a0f1a] text-xl">🤖</span>
+            <header className="bg-[#0f1629]/90 backdrop-blur-xl border-b border-white/5">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav className="flex items-center justify-between h-16">
+                        <Link href="/" className="flex items-center gap-2">
+                            <div className="w-9 h-9 bg-gradient-to-br from-amber-400 to-amber-500 rounded-lg flex items-center justify-center shadow-lg shadow-amber-500/20">
+                                <span className="text-[#0a0f1a] text-base">🤖</span>
                             </div>
-                            <span className="text-xl font-bold text-white">ChatBotVN</span>
+                            <span className="text-lg font-bold text-white">ChatBotVN</span>
                         </Link>
                     </nav>
                 </div>
             </header>
 
-            <main className="relative py-16">
-                <div className="max-w-xl mx-auto px-6 lg:px-8">
-                    {/* Success Icon */}
-                    <div className="text-center mb-10">
-                        <div className="inline-flex items-center justify-center w-24 h-24 bg-green-500/20 rounded-full mb-6 border-2 border-green-500/50 shadow-lg shadow-green-500/20">
-                            <svg className="w-12 h-12 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <main className="relative py-12">
+                <div className="max-w-md mx-auto px-4 sm:px-6">
+                    {/* Success Card - WHITE */}
+                    <div className="bg-white rounded-3xl p-8 shadow-2xl shadow-black/20 text-center mb-6">
+                        <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
+                            <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h1 className="text-3xl lg:text-4xl font-bold text-white mb-3">
+                        <h1 className="text-2xl font-bold text-gray-900 mb-2">
                             Đặt Hàng Thành Công!
                         </h1>
-                        <p className="text-slate-400 text-lg">
+                        <p className="text-gray-500">
                             Vui lòng thanh toán để kích hoạt sản phẩm
                         </p>
                     </div>
 
-                    {/* Order Info */}
-                    <div className="bg-slate-800/30 backdrop-blur-xl rounded-3xl p-6 border border-slate-700/30 mb-6">
-                        <h2 className="text-lg font-bold text-white mb-4">Thông Tin Đơn Hàng</h2>
-                        <div className="flex justify-between items-center p-4 bg-slate-900/50 rounded-2xl">
-                            <span className="text-slate-400">Mã đơn hàng</span>
-                            <span className="text-white font-mono font-bold">{orderId?.slice(0, 8)}...</span>
+                    {/* Order Info - WHITE */}
+                    <div className="bg-white rounded-3xl p-6 shadow-2xl shadow-black/10 mb-6">
+                        <h2 className="text-base font-bold text-gray-900 mb-4">Thông Tin Đơn Hàng</h2>
+                        <div className="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                            <span className="text-gray-500 text-sm">Mã đơn hàng</span>
+                            <span className="text-gray-900 font-mono font-bold text-sm">{orderId?.slice(0, 8)}...</span>
                         </div>
                     </div>
 
-                    {/* Payment Instructions */}
-                    <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 rounded-3xl p-6 mb-6">
-                        <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
-                            <span className="text-2xl">💳</span>
+                    {/* Payment Instructions - AMBER */}
+                    <div className="bg-amber-50 border border-amber-100 rounded-3xl p-6 mb-6">
+                        <h2 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <span className="text-xl">💳</span>
                             Hướng Dẫn Thanh Toán
                         </h2>
-                        <div className="space-y-3 text-slate-300">
+                        <div className="space-y-3 text-gray-700 text-sm">
                             <p className="flex items-start gap-3">
-                                <span className="w-6 h-6 bg-amber-500 text-[#0a0f1a] rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</span>
+                                <span className="w-6 h-6 bg-amber-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span>
                                 <span>Chuyển khoản theo thông tin bên dưới</span>
                             </p>
                             <p className="flex items-start gap-3">
-                                <span className="w-6 h-6 bg-amber-500 text-[#0a0f1a] rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</span>
-                                <span>Nhập <strong className="text-amber-400">đúng nội dung</strong> chuyển khoản</span>
+                                <span className="w-6 h-6 bg-amber-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span>
+                                <span>Nhập <strong className="text-amber-700">đúng nội dung</strong> chuyển khoản</span>
                             </p>
                             <p className="flex items-start gap-3">
-                                <span className="w-6 h-6 bg-amber-500 text-[#0a0f1a] rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</span>
+                                <span className="w-6 h-6 bg-amber-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span>
                                 <span>Hệ thống tự động kích hoạt trong vài phút</span>
                             </p>
                         </div>
                     </div>
 
-                    {/* Bank Info */}
-                    <div className="bg-slate-800/30 backdrop-blur-xl rounded-3xl p-6 border border-slate-700/30 mb-8">
-                        <h2 className="text-lg font-bold text-white mb-6">Thông Tin Chuyển Khoản</h2>
+                    {/* Bank Info - WHITE */}
+                    <div className="bg-white rounded-3xl p-6 shadow-2xl shadow-black/10 mb-8">
+                        <h2 className="text-base font-bold text-gray-900 mb-5">Thông Tin Chuyển Khoản</h2>
                         <div className="space-y-4">
                             {bankInfo.map((item, idx) => (
                                 <div key={idx}>
-                                    <label className="block text-slate-400 text-sm mb-2">{item.label}</label>
-                                    <div className="flex items-center gap-3">
+                                    <label className="block text-gray-500 text-xs mb-1.5">{item.label}</label>
+                                    <div className="flex items-center gap-2">
                                         <input
                                             type="text"
                                             value={item.value}
                                             readOnly
-                                            className={`flex-1 px-4 py-3.5 bg-slate-900/50 border border-slate-700/50 rounded-2xl text-sm ${item.highlight ? 'text-amber-400 font-bold font-mono' : 'text-white'
+                                            className={`flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm ${item.highlight ? 'text-amber-600 font-bold font-mono' : 'text-gray-900'
                                                 }`}
                                         />
                                         <button
                                             onClick={() => copyToClipboard(item.value, item.label)}
-                                            className={`px-4 py-3.5 rounded-2xl font-medium transition-all text-sm ${copiedField === item.label
+                                            className={`px-4 py-3 rounded-xl font-medium transition-all text-sm ${copiedField === item.label
                                                     ? 'bg-green-500 text-white'
-                                                    : 'bg-slate-700/50 text-white hover:bg-slate-600/50'
+                                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                                 }`}
                                         >
                                             {copiedField === item.label ? '✓' : '📋'}
@@ -123,16 +122,16 @@ function ThankYouContent() {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col gap-3">
                         <Link
                             href="/dashboard"
-                            className="flex-1 py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#0a0f1a] font-bold text-center rounded-2xl shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.01] transition-all duration-300"
+                            className="py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-gray-900 font-bold text-center rounded-2xl shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] transition-all duration-300"
                         >
                             Xem Đơn Hàng
                         </Link>
                         <Link
                             href="/"
-                            className="flex-1 py-4 bg-slate-800/50 text-white font-bold text-center rounded-2xl border border-slate-700/50 hover:bg-slate-700/50 transition-all"
+                            className="py-4 bg-white text-gray-700 font-bold text-center rounded-2xl border border-gray-200 hover:bg-gray-50 transition-all"
                         >
                             Về Trang Chủ
                         </Link>
@@ -147,7 +146,7 @@ export default function ThankYouPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen bg-[#0a0f1a] flex items-center justify-center">
-                <div className="w-14 h-14 border-4 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-amber-400/30 border-t-amber-400 rounded-full animate-spin"></div>
             </div>
         }>
             <ThankYouContent />
